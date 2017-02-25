@@ -1,0 +1,213 @@
+apply plugin: 'com.android.application'
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.google.gms:google-services:3.0.0'
+    }
+
+    allprojects {
+        repositories {
+            jcenter()
+        }
+    }
+
+//    configurations {
+//        compile.exclude module: 'support-v4'
+//    }
+}
+
+android {
+
+    signingConfigs {
+
+
+        debug {
+            storeFile file("deploy/release_cert.jks")
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+            v2SigningEnabled false
+        }
+
+        release  {
+            storeFile file("deploy/release_cert.jks")
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+            v2SigningEnabled false
+        }
+    }
+
+    compileSdkVersion 25
+    buildToolsVersion '25.0.0'
+
+    useLibrary 'org.apache.http.legacy'
+    //defaultConfig.applicationId = "org.telegram.messenger"
+
+    sourceSets.main.jniLibs.srcDirs = ['./jni/']
+
+    externalNativeBuild {
+        ndkBuild {
+            path "jni/Android.mk"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    defaultConfig {
+        applicationId 'com.investorz.investorchart'
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 11
+        versionName "3.0 dev"
+        multiDexEnabled true
+
+        externalNativeBuild {
+            ndkBuild {
+                arguments "NDK_APPLICATION_MK:=jni/Application.mk", "APP_PLATFORM:=android-15"
+                abiFilters "armeabi-v7a", "x86"
+            }
+        }
+    }
+
+    dexOptions {
+        //incremental true
+        javaMaxHeapSize "4g"
+    }
+
+//    defaultConfig.versionCode = 851
+
+    buildTypes {
+
+        release {
+            debuggable false
+            jniDebuggable false
+            signingConfig signingConfigs.release
+            //signingConfig signingConfigs.investorzThaiStock
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            debuggable true
+            jniDebuggable true
+            signingConfig signingConfigs.debug
+        }
+
+        foss {
+            debuggable false
+            jniDebuggable false
+            signingConfig signingConfigs.release
+        }
+    }
+
+    sourceSets.debug {
+        manifest.srcFile 'config/debug/AndroidManifest.xml'
+    }
+
+    sourceSets.release {
+        manifest.srcFile 'config/release/AndroidManifest.xml'
+    }
+
+    sourceSets.foss {
+        manifest.srcFile 'config/foss/AndroidManifest.xml'
+    }
+
+    productFlavors {
+        x86 {
+            ndk {
+                abiFilter "x86"
+            }
+            versionCode = 2
+        }
+        armv7 {
+            ndk {
+                abiFilter "armeabi-v7a"
+            }
+            versionCode = 1
+        }
+        fat {
+            versionCode = 3
+        }
+    }
+
+    applicationVariants.all { variant ->
+        def abiVersion = variant.productFlavors.get(0).versionCode
+        variant.mergedFlavor.versionCode = defaultConfig.versionCode * 10 + abiVersion;
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+    }
+}
+
+dependencies {
+    ext {
+        supportLibVersion = '25.0.0'
+        playServiceVersion = '9.6.1'
+        firebaseVersion = '9.6.1'
+    }
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile "com.android.support:appcompat-v7:${supportLibVersion}"
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-all:1.10.19'
+    compile "com.android.support:design:${supportLibVersion}"
+    compile "com.android.support:support-v4:${supportLibVersion}"
+    compile "com.android.support:support-core-ui:${supportLibVersion}"
+    compile "com.android.support:support-compat:${supportLibVersion}"
+    compile "com.android.support:support-core-utils:${supportLibVersion}"
+
+    compile 'com.loopj.android:android-async-http:1.4.9'
+    compile "com.android.support:recyclerview-v7:${supportLibVersion}"
+    compile "com.android.support:cardview-v7:${supportLibVersion}"
+    compile 'com.github.bumptech.glide:glide:3.5.2'
+    compile 'com.github.clans:fab:1.6.4'
+
+    compile 'com.jakewharton:disklrucache:2.0.2'
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.2'
+    //compile "com.google.android.gms:play-services-basement:${playServiceVersion}"
+    compile "com.google.android.gms:play-services-ads:${playServiceVersion}"
+    compile "com.google.android.gms:play-services-auth:${playServiceVersion}"
+    compile "com.google.android.gms:play-services-gcm:${playServiceVersion}"
+    compile "com.google.android.gms:play-services-analytics:${playServiceVersion}"
+    compile "com.google.android.gms:play-services-appindexing:${playServiceVersion}"
+    compile "com.google.android.gms:play-services-maps:${playServiceVersion}"
+    compile "com.google.android.gms:play-services-vision:${playServiceVersion}"
+    compile "com.google.firebase:firebase-core:${firebaseVersion}"
+    compile "com.google.firebase:firebase-messaging:${firebaseVersion}"
+
+    //tagview
+    //compile 'co.lujun:androidtagview:1.0.3' //not need
+
+    //from telegram
+    compile 'net.hockeyapp.android:HockeySDK:4.0.1'
+    compile 'com.googlecode.mp4parser:isoparser:1.0.6'
+}
+
+
+
+apply plugin: 'com.google.gms.google-services'
+
+//https://developer.android.com/topic/libraries/support-library/revisions.html
+// https://github.com/whilu/AndroidTagView
+// https://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/th
+// https://github.com/namito/TagCloudLinkView
+// http://inducesmile.com/android/android-gridlayoutmanager-with-recyclerview-in-material-design/
+// https://github.com/Clans/FloatingActionButton
+//fix statusbar issue//compile 'com.jaeger.statusbaruitl:library:1.1.0' //https://github.com/laobie/StatusBarUtil

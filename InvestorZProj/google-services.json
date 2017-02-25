@@ -1,0 +1,92 @@
+{
+  "project_info": {
+    "project_number": "592371445642",
+    "firebase_url": "https://investorzthaistock.firebaseio.com",
+    "project_id": "investorzthaistock",
+    "storage_bucket": "investorzthaistock.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592371445642:android:67b672c8bb642e5a",
+        "android_client_info": {
+          "package_name": "com.investorz.investorchart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "592371445642-vum941bg69vnq0bht5bilbf7ilbvcj0c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.investorz.investorchart",
+            "certificate_hash": "A15595C5059F031182A65DA42142910EF434A964"
+          }
+        },
+        {
+          "client_id": "592371445642-0nmdms4cdc1tss6v2sa28rd6oj9n73bc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.investorz.investorchart",
+            "certificate_hash": "D0352CCFB7E6581B2CFECF8EE10F65021F417CB0"
+          }
+        },
+        {
+          "client_id": "592371445642-g1ga34l46e71fsq3cmm7linnq3u7926u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANNQx12H0EV-4FKBjresIWV18Ov7doDII"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-2797147-9"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592371445642:android:f6afd7b67eae3860",
+        "android_client_info": {
+          "package_name": "org.telegram.messenger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "592371445642-g1ga34l46e71fsq3cmm7linnq3u7926u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANNQx12H0EV-4FKBjresIWV18Ov7doDII"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

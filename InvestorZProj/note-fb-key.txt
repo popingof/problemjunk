@@ -1,0 +1,50 @@
+/*** Facebook SDK
+https://developers.facebook.com/docs/android/
+https://developers.facebook.com/quickstarts/109296329472421/?platform=android
+https://developers.facebook.com/docs/facebook-login/android
+http://code.tutsplus.com/tutorials/quick-tip-add-facebook-login-to-your-android-app--cms-23837
+****/
+/****
+get keystore
+1 https://www.youtube.com/watch?v=sgovKjMr-UI
+2. https://code.google.com/archive/p/openssl-for-windows/downloads
+Other http://devahoy.com/posts/troubleshooting-invalid-android_key-parameter-facebook-sdk/
+
+C:\Program Files\Java\jdk1.8.0_65\bin
+
+C:\OpenSSL\bin
+
+C:\Users\Developers\.android
+
+keytool.exe -exportcert -alias androiddebugkey -keystore C:\Users\Developers\.android\debug.keystore | C:\OpenSSL\bin\openssl sha1 -binary | C:\OpenSSL\bin\openssl base64
+Password : somlettd
+Key = ga0RGNYHvNM5d0SLGQfpQWAPGJ8=
+Boy = 0DUsz7fmWBss/s+O4Q9lAh9BfLA=
+Joe = oVWVxQWfAxGCpl2kIUKRDvQ0qWQ=
+****/
+
+/****
+facebook graph
+https://developers.facebook.com/docs/android/graph
+****/
+
+/****
+Session Managment
+http://www.tutorialspoint.com/android/android_session_management.htm
+http://androidexample.com/Android_Session_Management_Using_SharedPreferences_-_Android_Example/index.php?view=article_discription&aid=127&aaid=147
+****/
+
+/****
+JSON + RecycleView
+http://androidcss.com/android/fetch-json-data-android/
+https://www.learn2crack.com/2016/02/recyclerview-json-parsing.html
+PHP Mysql + Search View
+http://androidcss.com/android/android-search-view-php-mysql/
+
+Staggered Grid Layout Manager
+http://inducesmile.com/android/android-staggeredgridlayoutmanager-example-tutorial/
+https://github.com/Mobeyosoft/Recyclerview-Sample
+
+SearchView + RecycleView
+http://www.tutorialsbuzz.com/2015/11/Android-Filter-RecyclerView-Using-SearchView-In-ToolBar.html
+****/
