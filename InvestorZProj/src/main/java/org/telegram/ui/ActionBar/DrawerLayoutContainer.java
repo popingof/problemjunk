@@ -32,6 +32,7 @@ import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.FileLog;
 import com.investorz.stockchartview.R;
 import org.telegram.messenger.AnimatorListenerAdapterProxy;
+import org.telegram.ui.NewTmpActivity;
 
 public class DrawerLayoutContainer extends FrameLayout {
 
@@ -275,7 +276,20 @@ public class DrawerLayoutContainer extends FrameLayout {
                 }
                 return true;
             }
-            if (allowOpenDrawer && parentActionBarLayout.fragmentsStack.size() == 1) {
+            // >> add by yang_li
+            /*
+            explain: parentActionBarLayout.fragmentsStack is a array of fragment to running
+             when launchActiviy will load the fragment named DialogActivity( It is not real activity), the screen shows main, and fragmentsStack.size() is 1.
+             when you select any item,and show other page, fragmentStack.size() will be increase, and you close that, fragmentsStack.size() will be decrease.
+             you select named NewTmpActivity, fragmentsStack.size() is 2. but you selected another as GroupCreateActivity asn so on, fragmentsStack.size() is 2, too.
+             ... So what kind of the last fragment is, we must know, when it is fragment named NewTmpActivity, the slide menu have to work as finger swipe.
+               local variable currentFragment will be last fragment to running recently.
+               currentFragment instanceof NewTmpActivity, this returns true when currentFragment is NewTmpActivity.
+               It's done.
+             */
+            final BaseFragment currentFragment = !parentActionBarLayout.fragmentsStack.isEmpty() ? parentActionBarLayout.fragmentsStack.get(parentActionBarLayout.fragmentsStack.size() - 1) : null;
+            if (allowOpenDrawer && (parentActionBarLayout.fragmentsStack.size() == 1 || (parentActionBarLayout.fragmentsStack.size() == 2  && currentFragment instanceof NewTmpActivity))){
+                // << end
                 if (ev != null && (ev.getAction() == MotionEvent.ACTION_DOWN || ev.getAction() == MotionEvent.ACTION_MOVE) && !startedTracking && !maybeStartTracking) {
                     startedTrackingPointerId = ev.getPointerId(0);
                     maybeStartTracking = true;

@@ -402,6 +402,16 @@ public class LaunchActivity extends Activity implements ActionBarLayout.ActionBa
                     Browser.openUrl(LaunchActivity.this, LocaleController.getString("TelegramFaqUrl", R.string.TelegramFaqUrl));
                     drawerLayoutContainer.closeDrawer(false);
                 }
+                // >> add by yang_li
+                /*
+                 this is act when you selected item indexed 10.
+                 It must work when DrawerLayoutAdapter.getCount() is 11.
+                 */
+                else if (position == 10) {
+                    presentFragment(new NewTmpActivity());
+                    drawerLayoutContainer.closeDrawer(false);
+                }
+                //<< end
             }
         });
 

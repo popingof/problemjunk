@@ -44,8 +44,8 @@ public class DrawerLayoutAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return UserConfig.isClientActivated() ? 10 : 0;
-    }
+        return UserConfig.isClientActivated() ? 11 : 0;
+    }   // modified by yang_li before it was "return UserConfig.isClientActivated() ? 10 : 0;"
 
     @Override
     public Object getItem(int i) {
@@ -101,6 +101,19 @@ public class DrawerLayoutAdapter extends BaseAdapter {
             } else if (i == 9) {
                 actionCell.setTextAndIcon(LocaleController.getString("TelegramFaq", R.string.TelegramFaq), R.drawable.menu_help);
             }
+            /*
+             >> add by yang_li
+             in this adapter, I'll append one of item, as indexed as 10,
+             this'll be show when the function getCount() returns 11
+             before modified , that returns 10
+             see at 47 line.
+             */
+            else if (i == 10) {
+                actionCell.setTextAndIcon("New Activity", R.drawable.menu_help);
+            }
+            /*
+             << end
+             */
         }
 
         return view;
